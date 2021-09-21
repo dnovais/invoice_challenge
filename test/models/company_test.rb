@@ -1,6 +1,17 @@
 require 'test_helper'
 
 class CompanyTest < ActiveSupport::TestCase
+  test 'when company has many invoices' do
+    # arrange
+    company = companies(:one)
+
+    # act
+    company_invoices = company.invoices
+
+    # assert
+    assert_equal 2, company_invoices.count
+  end
+
   test 'when all data is empty' do
     # Arrange
     company = Company.new

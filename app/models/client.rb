@@ -5,6 +5,8 @@ class Client < ApplicationRecord
 
   validate :cpf, :check_cpf_valid
 
+  has_many :invoices
+
   private
 
   def check_cpf_valid

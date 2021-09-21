@@ -1,6 +1,17 @@
 require "test_helper"
 
 class ClientTest < ActiveSupport::TestCase
+  test 'when client has many invoices' do
+    # arrange
+    client = clients(:one)
+
+    # act
+    client_invoices = client.invoices
+
+    # assert
+    assert_equal 3, client_invoices.count
+  end
+
   test 'when all data is empty' do
     # Arrange
     client = Client.new

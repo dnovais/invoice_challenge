@@ -7,6 +7,8 @@ class Company < ApplicationRecord
 
   validate :cnpj, :check_cnpj_valid
 
+  has_many :invoices
+
   private
 
   def check_cnpj_valid
