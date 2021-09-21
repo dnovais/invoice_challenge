@@ -1,0 +1,20 @@
+require:
+  - rubocop-rails
+AllCops:
+ TargetRubyVersion: 2.7
+ Exclude:
+   - 'bin/**/*'
+   - 'vendor/**/*'
+   - 'db/**/*'
+   - 'config/**/*'
+   - 'script/**/*'
+   - 'spec/rails_helper.rb'
+Documentation:
+ Enabled: false
+Style/FrozenStringLiteralComment:
+ Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
