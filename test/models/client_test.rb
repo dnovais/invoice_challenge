@@ -18,7 +18,7 @@ class ClientTest < ActiveSupport::TestCase
     assert_equal("can't be blank, the cpf:  is not valid", client_errors[:cpf])
   end
 
-  test 'when format of company email is not valid' do
+  test 'when format of client email is not valid' do
     # arrange
     name = 'Agatha Beatriz da Mata'
     email = 'a@a'
@@ -35,5 +35,24 @@ class ClientTest < ActiveSupport::TestCase
     client_errors = client.errors.as_json.transform_values { |value| value.join(', ') }
 
     assert_equal('is invalid', client_errors[:email])
+  end
+
+  test 'when already exists a client with email' do
+    # arrange
+    name = 'Agatha Beatriz da Mata'
+    email = clients(:one).email
+    cpf = '033.704.441-43'
+    address = 'Rua Antônio Teixeira Morales'
+    phone = '(51) 3751-4077'
+
+    # act
+    client = Client.create(name: name, email: email, cpf: cpf, address: address, phone: phone)
+
+    # assert
+    assert client.errors.present?
+
+    client_errors = client.errors.as_json.transform_values { |value| value.join(', ') }
+
+    assert_equal('has already been taken', client_errors[:email])
   end
 end
