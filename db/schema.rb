@@ -43,15 +43,15 @@ ActiveRecord::Schema.define(version: 2021_09_21_193025) do
     t.bigint "company_id", null: false
     t.bigint "client_id", null: false
     t.string "title"
-    t.string "status"
+    t.integer "status", default: 0
     t.text "description"
     t.decimal "discount_percentage"
-    t.decimal "discount_amount"
+    t.decimal "discount_amount", precision: 8, scale: 2
     t.decimal "tax_percentage"
-    t.decimal "tax_amount"
+    t.decimal "tax_amount", precision: 8, scale: 2
     t.date "due_date"
-    t.decimal "sub_total"
-    t.decimal "total"
+    t.decimal "sub_total", precision: 8, scale: 2
+    t.decimal "total", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_invoices_on_client_id"
