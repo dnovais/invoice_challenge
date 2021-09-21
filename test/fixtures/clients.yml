@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Tereza Marli Patrícia Almada
+  email: tereza.almada@domain.com.br
+  cpf: 770.673.000-02
+  address: Rua Cuite
+  phone: (83) 2689-2075
+
+two:
+  name: Rafael Thiago Nascimento
+  email: MyString
+  cpf: 111.764.098-16
+  address: rafael_nascimento@maiamaquinas.com.br
+  phone: (51) 3748-7581
