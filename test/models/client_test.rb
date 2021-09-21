@@ -74,4 +74,23 @@ class ClientTest < ActiveSupport::TestCase
 
     assert_equal('has already been taken', client_errors[:cpf])
   end
+
+  test 'when cpf is not valid' do
+    # arrange
+    name = 'Fernando Alves'
+    email = 'contact@fernandoalves.com'
+    cpf = '99999999999'
+    address = 'rua a3 Jardim Esmeralda São Paulo SP'
+    phone = '(11) 2457-3624'
+
+    # act
+    client = Client.create(name: name, email: email, cpf: cpf, address: address, phone: phone)
+
+    # assert
+    assert client.errors.present?
+
+    client_errors = client.errors.as_json.transform_values { |value| value.join(', ') }
+
+    assert_equal('the cpf: 99999999999 is not valid', client_errors[:cpf])
+  end
 end
