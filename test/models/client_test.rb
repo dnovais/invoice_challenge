@@ -55,4 +55,23 @@ class ClientTest < ActiveSupport::TestCase
 
     assert_equal('has already been taken', client_errors[:email])
   end
+
+  test 'when cpf already exists' do
+    # arrange
+    name = 'Agatha Beatriz da Mata'
+    email = 'contact@agathabea.com'
+    cpf = clients(:one).cpf
+    address = 'Rua Eurídice Jardim Brasil (Zona Norte) São Paulo SP'
+    phone = '(11) 2677-8628'
+
+    # act
+    client = Client.create(name: name, email: email, cpf: cpf, address: address, phone: phone)
+
+    # assert
+    assert client.errors.present?
+
+    client_errors = client.errors.as_json.transform_values { |value| value.join(', ') }
+
+    assert_equal('has already been taken', client_errors[:cpf])
+  end
 end
