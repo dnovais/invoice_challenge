@@ -33,7 +33,7 @@ class PaymentTest < ActiveSupport::TestCase
     assert_equal("can't be blank", payment_errors[:amount])
     assert_equal("is not included in the list, can't be blank", payment_errors[:payment_kind])
     assert_equal("can't be blank", payment_errors[:payment_date])
-    assert_equal("can't be blank", payment_errors[:status])
+    assert_equal("can't be blank, is not included in the list", payment_errors[:status])
   end
 
   test 'when payments payment_kind not exist on enum' do
@@ -43,6 +43,26 @@ class PaymentTest < ActiveSupport::TestCase
     payment_kind = 'payment_kind_enum_not_valid'
     payment_date = Time.zone.today
     status = 0
+
+    # act and assert
+    assert_raises ArgumentError do
+      Payment.create(
+        invoice: invoice,
+        amount: amount,
+        payment_kind: payment_kind,
+        payment_date: payment_date,
+        status: status
+      )
+    end
+  end
+
+  test 'when payments status not exist on enum' do
+    # arrange
+    invoice = invoices(:one)
+    amount = 6.00
+    payment_kind = 'money'
+    payment_date = Time.zone.today
+    status = 'status_enum_not_valid'
 
     # act and assert
     assert_raises ArgumentError do
