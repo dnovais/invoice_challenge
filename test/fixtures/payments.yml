@@ -13,3 +13,10 @@ two:
   payment_kind: 1
   payment_date: 2021-09-21
   status: 1
+
+three:
+  invoice: one
+  amount: 5.99
+  payment_kind: 0
+  payment_date: 2021-09-21
+  status: 0

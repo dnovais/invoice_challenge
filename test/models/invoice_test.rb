@@ -16,6 +16,17 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal invoice_company, company
   end
 
+  test 'when invoice has many payments' do
+    # arrange
+    invoice = invoices(:one)
+
+    # act
+    invoice_payments = invoice.payments
+
+    # assert
+    assert_equal 2, invoice_payments.count
+  end
+
   test 'when all data is empty' do
     # Arrange
     client = clients(:one)

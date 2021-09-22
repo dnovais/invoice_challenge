@@ -2,6 +2,8 @@ class Invoice < ApplicationRecord
   belongs_to :company
   belongs_to :client
 
+  has_many :payments
+
   enum status: {
     open: 0,
     closed: 1,
