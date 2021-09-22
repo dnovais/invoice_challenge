@@ -27,6 +27,28 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal 2, invoice_payments.count
   end
 
+  test 'when invoice has many invoice items' do
+    # arrange
+    invoice = invoices(:one)
+
+    # act
+    invoice_invoice_items = invoice.invoice_items
+
+    # assert
+    assert_equal 1, invoice_invoice_items.count
+  end
+
+  test 'when invoice has many items through invoice items' do
+    # arrange
+    invoice = invoices(:one)
+
+    # act
+    invoice_items = invoice.items
+
+    # assert
+    assert_equal 1, invoice_items.count
+  end
+
   test 'when all data is empty' do
     # Arrange
     client = clients(:one)

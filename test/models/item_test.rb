@@ -1,6 +1,17 @@
 require "test_helper"
 
 class ItemTest < ActiveSupport::TestCase
+  test 'when invoice has many invoice items' do
+    # arrange
+    item = items(:one)
+
+    # act
+    item_invoice_items = item.invoice_items
+
+    # assert
+    assert_equal 1, item_invoice_items.count
+  end
+
   test 'when all data is empty' do
     # Arrange
     item = Item.new
