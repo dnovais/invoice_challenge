@@ -17,4 +17,12 @@ class Payment < ApplicationRecord
   validates :amount, :payment_date, :status, presence: true
   validates :payment_kind, inclusion: { in: payment_kinds.keys }, presence: true
   validates :status, inclusion: { in: statuses.keys }
+
+  validate :payment_date, :payment_date_cannot_be_in_the_past
+
+  private
+
+  def payment_date_cannot_be_in_the_past
+    errors.add(:payment_date, "can't be in the past") if payment_date.present? && payment_date < Time.zone.today
+  end
 end

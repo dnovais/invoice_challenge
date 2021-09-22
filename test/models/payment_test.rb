@@ -75,4 +75,29 @@ class PaymentTest < ActiveSupport::TestCase
       )
     end
   end
+
+  test 'when payments payment_date is in the past' do
+    # arrange
+    invoice = invoices(:one)
+    amount = 6.00
+    payment_kind = 'money'
+    payment_date = Time.zone.today - 1.day
+    status = 'waiting'
+
+    # act
+    payment = Payment.create(
+      invoice: invoice,
+      amount: amount,
+      payment_kind: payment_kind,
+      payment_date: payment_date,
+      status: status
+    )
+
+    # assert
+    assert payment.errors.present?
+
+    payment_errors = payment.errors.as_json.transform_values { |value| value.join(', ') }
+
+    assert_equal("can't be in the past", payment_errors[:payment_date])
+  end
 end
