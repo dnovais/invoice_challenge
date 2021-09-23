@@ -8,5 +8,17 @@ module Api
         on.success { |result| render_json(200, invoices: result[:invoices]) }
       end
     end
+
+    def show
+      find_invoice
+      .on_failure(:invoice_not_found) { render_json(404, invoice: { id: 'not found' })  }
+      .on_success { |result| render_json(200, invoice: Invoice::Serialize.as_json(result[:invoice])) }
+    end
+
+    private
+
+    def find_invoice
+      Invoice::Find.call(params: params)
+    end
   end
 end
