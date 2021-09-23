@@ -5,7 +5,7 @@ module Api
     def index
       Invoice::Fetch.call(params: params) do |on|
         on.failure { raise NotImplementedError }
-        on.success { |result| render_json(200, invoices: result[:data]) }
+        on.success { |result| render_json(200, invoices: result[:invoices]) }
       end
     end
   end

@@ -6,9 +6,7 @@ class Invoice::Fetch < Micro::Case
   def call!
     invoices = filter_invoices
 
-    invoices = invoices.map { |invoice| as_json(invoice) }
-
-    Success { { data: invoices } }
+    Success result: { invoices: invoices }
   end
 
   private
