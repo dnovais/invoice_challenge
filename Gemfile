@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# Represent use cases in a simple and powerful way while writing modular, expressive and sequentially logical code.
+gem 'u-case', '~> 4.5.1'
+
 # cpf_cnpj allows you to create, validate and format CPF/CNPJ
 gem 'cpf_cnpj'
 

@@ -109,6 +109,7 @@ GEM
     ice_nine (0.11.2)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    kind (5.9.0)
     kwalify (0.7.2)
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -252,6 +253,11 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    u-attributes (2.8.0)
+      kind (>= 4.0, < 6.0)
+    u-case (4.5.1)
+      kind (>= 5.6, < 6.0)
+      u-attributes (>= 2.7, < 3.0)
     unicode-display_width (2.0.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -301,6 +307,7 @@ DEPENDENCIES
   spring
   turbolinks (~> 5)
   tzinfo-data
+  u-case (~> 4.5.1)
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
