@@ -9,9 +9,10 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
 
   enum status: {
-    open: 0,
-    closed: 1,
-    paid: 2
+    draft: 0,
+    sent: 1,
+    paid: 2,
+    closed: 3
   }
 
   validates :title, presence: true
