@@ -2,7 +2,7 @@
 
 module Invoice::Serialize
   AsJson = ->(invoice) do
-    invoice.as_json
+    invoice.as_json(include: [:company, :client, :items] )
   end
 
   def self.as_json(invoice)

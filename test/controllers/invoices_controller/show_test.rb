@@ -40,6 +40,9 @@ class InvoicesControllerIndexTest < ActionDispatch::IntegrationTest
         total
         created_at
         updated_at
+        company
+        client
+        items
       ], invoice.keys
     )
   end
