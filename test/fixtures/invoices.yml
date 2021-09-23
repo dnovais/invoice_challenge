@@ -1,10 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+draft:
   company: one
   client: one
   title: Invoice 01
-  status: open
+  status: draft
   description: Sample of description
   discount_percentage: 9.99
   discount_amount: 9.99
@@ -14,11 +14,11 @@ one:
   sub_total: 9.99
   total: 9.99
 
-two:
+sent:
   company: one
   client: one
   title: Invoice 02
-  status: open
+  status: sent
   description: Sample of description
   discount_percentage: 9.99
   discount_amount: 9.99
@@ -28,11 +28,25 @@ two:
   sub_total: 9.99
   total: 9.99
 
-three:
+paid:
   company: two
   client: one
   title: Invoice 03
-  status: open
+  status: paid
+  description: Sample of description
+  discount_percentage: 9.99
+  discount_amount: 9.99
+  tax_percentage: 9.99
+  tax_amount: 9.99
+  due_date: 2021-09-12
+  sub_total: 9.99
+  total: 9.99
+
+closed:
+  company: two
+  client: one
+  title: Invoice 03
+  status: closed
   description: Sample of description
   discount_percentage: 9.99
   discount_amount: 9.99

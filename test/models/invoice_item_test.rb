@@ -3,7 +3,7 @@ require "test_helper"
 class InvoiceItemTest < ActiveSupport::TestCase
   test 'when invoice item belongs to invoice and item' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
     item = items(:one)
     invoice_item = invoice_items(:one)
 

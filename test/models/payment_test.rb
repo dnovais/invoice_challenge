@@ -3,7 +3,7 @@ require "test_helper"
 class PaymentTest < ActiveSupport::TestCase
   test 'when payment belongs to invoice' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
     payment = payments(:one)
 
     # act
@@ -15,7 +15,7 @@ class PaymentTest < ActiveSupport::TestCase
 
   test 'when all data is empty' do
     # Arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
 
     payment = Payment.new
     payment.invoice_id = invoice.id
@@ -38,7 +38,7 @@ class PaymentTest < ActiveSupport::TestCase
 
   test 'when payments payment_kind not exist on enum' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
     amount = 6.00
     payment_kind = 'payment_kind_enum_not_valid'
     payment_date = Time.zone.today
@@ -58,7 +58,7 @@ class PaymentTest < ActiveSupport::TestCase
 
   test 'when payments status not exist on enum' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
     amount = 6.00
     payment_kind = 'money'
     payment_date = Time.zone.today
@@ -78,7 +78,7 @@ class PaymentTest < ActiveSupport::TestCase
 
   test 'when payments payment_date is in the past' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
     amount = 6.00
     payment_kind = 'money'
     payment_date = Time.zone.today - 1.day

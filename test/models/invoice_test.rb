@@ -3,7 +3,7 @@ require "test_helper"
 class InvoiceTest < ActiveSupport::TestCase
   test 'when invoice belongs to one client and one company' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
     client = clients(:one)
     company = companies(:one)
 
@@ -18,7 +18,7 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test 'when invoice has many payments' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
 
     # act
     invoice_payments = invoice.payments
@@ -29,7 +29,7 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test 'when invoice has many invoice items' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
 
     # act
     invoice_invoice_items = invoice.invoice_items
@@ -40,7 +40,7 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test 'when invoice has many items through invoice items' do
     # arrange
-    invoice = invoices(:one)
+    invoice = invoices(:draft)
 
     # act
     invoice_items = invoice.items

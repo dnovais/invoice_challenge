@@ -9,7 +9,7 @@ class ClientTest < ActiveSupport::TestCase
     client_invoices = client.invoices
 
     # assert
-    assert_equal 3, client_invoices.count
+    assert_equal 4, client_invoices.count
   end
 
   test 'when all data is empty' do
