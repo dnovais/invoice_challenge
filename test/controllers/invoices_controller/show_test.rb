@@ -1,19 +1,19 @@
 require 'test_helper'
 
 class InvoicesControllerShowTest < ActionDispatch::IntegrationTest
-  test "should respond with 404 when the invoice was not found" do
+  test 'should respond with 404 when the invoice was not found' do
     get api_invoice_url(id: 1)
 
     assert_response 404
 
     assert_equal(
-      { "invoice" => { "id" => "not found" } },
+      { 'invoice' => { 'id' => 'not found' } },
       JSON.parse(response.body)
     )
   end
 
-  test "should respond with 200 when finds the record" do
-    invoice = Invoice.draft.first
+  test 'should respond with 200 when finds the record' do
+    invoice = invoices(:draft)
 
     get api_invoice_url(id: invoice.id)
 
