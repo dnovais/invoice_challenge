@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class InvoicesControllerIndexTest < ActionDispatch::IntegrationTest
+class InvoicesControllerShowTest < ActionDispatch::IntegrationTest
   test "should respond with 404 when the invoice was not found" do
     get api_invoice_url(id: 1)
 
