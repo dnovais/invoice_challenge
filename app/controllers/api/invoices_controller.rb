@@ -22,6 +22,13 @@ module Api
       end
     end
 
+    def update
+      find_invoice
+        .then(Invoice::Update)
+        .on_failure { |result| render_json(422, invoice: Invoice::Serialize.as_json(result[:invoice])) }
+        .on_success { |result| render_json(201, invoice: Invoice::Serialize.as_json(result[:invoice])) }
+    end
+
     private
 
     def find_invoice

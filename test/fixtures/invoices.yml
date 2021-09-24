@@ -10,7 +10,7 @@ draft:
   discount_amount: 9.99
   tax_percentage: 9.99
   tax_amount: 9.99
-  due_date: 2021-09-10
+  due_date: <%= Time.zone.today + 1.day %>
   sub_total: 9.99
   total: 9.99
 
@@ -24,7 +24,7 @@ sent:
   discount_amount: 9.99
   tax_percentage: 9.99
   tax_amount: 9.99
-  due_date: 2021-09-12
+  due_date: <%= Time.zone.today + 1.day %>
   sub_total: 9.99
   total: 9.99
 
@@ -38,7 +38,7 @@ paid:
   discount_amount: 9.99
   tax_percentage: 9.99
   tax_amount: 9.99
-  due_date: 2021-09-12
+  due_date: <%= Time.zone.today + 1.day %>
   sub_total: 9.99
   total: 9.99
 
@@ -52,6 +52,6 @@ closed:
   discount_amount: 9.99
   tax_percentage: 9.99
   tax_amount: 9.99
-  due_date: 2021-09-12
+  due_date: <%= Time.zone.today + 1.day %>
   sub_total: 9.99
   total: 9.99
