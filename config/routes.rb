@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'welcome', to: 'invoices#welcome'
 
+  resources :invoices, only: [:show]
+
   namespace :api do
     resources :invoices, only: [:index, :show, :create, :update]
   end

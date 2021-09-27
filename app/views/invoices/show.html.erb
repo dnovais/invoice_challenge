@@ -1,0 +1,95 @@
+
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    Invoice #: <b><%= @invoice.id %></b>
+                    <br>
+                    Created: <b><%= @invoice.created_at.strftime('%d/%m/%Y') %></b>
+                    <br>
+                    Due: <b><%= (@invoice.due_date).strftime('%d/%m/%Y') %></b>
+                    <br>
+                    Status: <span class="<%= @invoice.status %>"><%= @invoice.status %></span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    <b><%= @invoice.company.name %></b><br>
+                    <%= @invoice.company.address %><br>
+                    <i class="far fa-envelope"></i> <%= @invoice.company.email %><br>
+                    <i class="fas fa-phone"></i> <%= @invoice.company.phone %>
+                  </td>
+
+                  <td>
+                    <b><%= @invoice.client.name %></b><br>
+                    <%= @invoice.client.address %><br>
+                    <i class="far fa-envelope"></i> <%= @invoice.client.email %><br>
+                    <i class="fas fa-phone"></i> <%= @invoice.client.phone %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <% @invoice.items.each do |invoice_item| %>
+            <tr class="item">
+                <td>
+                    <%= invoice_item.name %><br>
+                    <small><%= invoice_item.description %></small>
+                </td>
+
+                <td class="right">
+                    <%= number_to_currency(invoice_item.unit_cost) %>
+                </td>
+
+                <td class="right">
+                    x <%= invoice_item.quantity %>
+                </td>
+
+                <td>
+                    <%= number_to_currency(invoice_item.unit_cost * invoice_item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="4"></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>Subtotal</b></td>
+            <td><%= number_to_currency(@invoice.sub_total) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>Discount (<%= @invoice.discount_amount %>%)</b></td>
+            <td>- <%#= number_to_currency(@invoice.discount_calculated) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>Tax (<%= @invoice.tax_amount %>%)</b></td>
+            <td>- <%#= number_to_currency(@invoice.discount_calculated) %></td>
+          </tr>
+
+          <tr class="heading">
+            <td colspan="2"></td>
+            <td><b>TOTAL:</b></td>
+            <td>
+               <b><%= number_to_currency(@invoice.total) %></b>
+            </td>
+          </tr>
+        </table>
+    </div>
