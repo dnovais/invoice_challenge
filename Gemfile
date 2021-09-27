@@ -34,6 +34,9 @@ gem 'u-case', '~> 4.5.1'
 # cpf_cnpj allows you to create, validate and format CPF/CNPJ
 gem 'cpf_cnpj'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 group :development, :test do
   gem 'pry'
 end
