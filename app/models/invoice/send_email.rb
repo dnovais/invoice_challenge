@@ -4,7 +4,7 @@ class Invoice::SendEmail < Micro::Case
   attributes :invoice
 
   def call!
-    InvoiceMailer.with(invoice: invoice).confirmation.deliver_now
+    InvoiceMailer.with(invoice: invoice).confirmation.deliver_later
 
     Success result: { invoice: invoice }
   end
