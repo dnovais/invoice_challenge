@@ -8,6 +8,8 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
+  accepts_nested_attributes_for :company
+  accepts_nested_attributes_for :client
   accepts_nested_attributes_for :items
 
   enum status: {

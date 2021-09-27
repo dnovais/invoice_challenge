@@ -6,7 +6,7 @@ class Invoice::Create < Micro::Case
   def call!
     invoice = Invoice.create(invoice_params)
 
-    if invoice.valid?
+    if invoice.save
       Success result: { invoice: invoice }
     else
       Failure result: { invoice: invoice.errors.as_json }
@@ -17,8 +17,6 @@ class Invoice::Create < Micro::Case
 
   def invoice_params
     params.require(:invoice).permit(
-      :company_id,
-      :client_id,
       :title,
       :status,
       :description,
@@ -34,6 +32,20 @@ class Invoice::Create < Micro::Case
         :description,
         :unit_cost,
         :quantity
+      ],
+      client_attributes: [
+        :name,
+        :email,
+        :cpf,
+        :address,
+        :phone
+      ],
+      company_attributes: [
+        :name,
+        :email,
+        :cnpj,
+        :address,
+        :phone
       ]
     )
   end
