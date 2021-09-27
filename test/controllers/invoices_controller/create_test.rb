@@ -3,8 +3,8 @@ require 'test_helper'
 class InvoicesControllerCreateTest < ActionDispatch::IntegrationTest
   test 'should respond with 422 when receives invalid params' do
     invoice_params = {
-      "invoice": {
-        "company_id": 123
+      'invoice': {
+        'company_id': 123
       }
     }
 
@@ -30,33 +30,47 @@ class InvoicesControllerCreateTest < ActionDispatch::IntegrationTest
     client = clients(:one)
 
     invoice_params = {
-      "invoice": {
-        "company_id": company.id,
-        "client_id": client.id,
-        "title": 'Invoice 01',
-        "status": 'draft',
-        "description": 'Sample of description',
-        "discount_percentage": 9.99,
-        "discount_amount": 9.99,
-        "tax_percentage": 9.99,
-        "tax_amount": 9.99,
-        "due_date": '2021-09-27',
-        "sub_total": 9.99,
-        "total": 9.99,
-        "items_attributes": [
+      'invoice': {
+        'company_id': company.id,
+        'client_id': client.id,
+        'title': 'Invoice 01',
+        'status': 'draft',
+        'description': 'Sample of description',
+        'discount_percentage': 9.99,
+        'discount_amount': 9.99,
+        'tax_percentage': 9.99,
+        'tax_amount': 9.99,
+        'due_date': '2021-09-27',
+        'sub_total': 9.99,
+        'total': 9.99,
+        'items_attributes': [
           {
-            "name": 'A item sample name',
-            "description": 'A item sample description',
-            "unit_cost": 10.0,
-            "quantity": 1
+            'name': 'A item sample name',
+            'description': 'A item sample description',
+            'unit_cost': 10.0,
+            'quantity': 1
           },
           {
-            "name": 'Another item sample name',
-            "description": 'Another item sample description',
-            "unit_cost": 10.0,
-            "quantity": 1
+            'name': 'Another item sample name',
+            'description': 'Another item sample description',
+            'unit_cost': 10.0,
+            'quantity': 1
           }
-        ]
+        ],
+        'company_attributes': {
+          'name': 'Anthony e Raimundo Restaurante ME',
+          'email': 'contato@arrestaurante.com.br',
+          'cnpj': '53.907.058/0001-80',
+          'address': 'Rua 14',
+          'phone': '(64) 2670-4462'
+        },
+        'client_attributes': {
+          'name': 'Marli Patrícia',
+          'email': 'Marli.almada@domain.com.br',
+          'cpf': '310.744.880-08',
+          'address': 'Rua Cuite',
+          'phone': '(83) 2689-2075'
+        }
       }
     }
 

@@ -37,6 +37,9 @@ gem 'cpf_cnpj'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+gem 'redis'
+gem 'sidekiq'
+
 group :development, :test do
   gem 'pry'
 end
@@ -56,6 +59,8 @@ group :development do
 
   # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter
   gem 'rubocop-rails', require: false
+
+  gem 'mailcatcher'
 end
 
 group :test do

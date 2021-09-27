@@ -1,0 +1,9 @@
+<h1>Congrats!</h1>
+
+<p>
+  <%= @invoice.client.name %>, your invoice was generated...
+</p>
+
+<p> To view click on the link below: </p>
+
+<p> <%= invoice_url(id: 1, format: :pdf) %> </p>

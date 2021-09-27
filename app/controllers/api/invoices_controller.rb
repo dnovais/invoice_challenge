@@ -16,10 +16,10 @@ module Api
     end
 
     def create
-      Invoice::Create.call(params: params) do |on|
-        on.failure { |result| render_json(422, invoice: Invoice::Serialize.as_json(result[:invoice])) }
-        on.success { |result| render_json(201, invoice: Invoice::Serialize.as_json(result[:invoice])) }
-      end
+      Invoice::Create.call(params: params)
+      .then(Invoice::SendEmail)
+      .on_failure { |result| render_json(422, invoice: Invoice::Serialize.as_json(result[:invoice])) }
+      .on_success { |result| render_json(201, invoice: Invoice::Serialize.as_json(result[:invoice])) }
     end
 
     def update
