@@ -36,3 +36,76 @@ O pagamento de uma fatura pode ocorrer de duas formas distintas. A primeira é o
 
 ## Modelagem do Banco de Dados
 ![alt modelagem do banco](invoicex_der.png)
+
+## Executando o projeto
+
+ -->   **Pré-requisitos**
+
+- Ruby - 2.7.4
+
+- Rails - 6.1.4
+
+- PostgreSQL
+
+ -->   **Passo a passo**
+1. Criar o banco de dados
+	```
+	rails db:create
+	```
+2. Executar as migrações
+	```
+	rails db:migrate
+	```
+3. Instalar gems e dependências
+	```
+	bundle install
+	```
+	```
+	yarn install
+	```
+5. Executar os testes
+	```
+	bin/rails test
+	```
+6. Executar a aplicação
+	```
+	rails server
+	```
+
+### Para acessar os endpoints da API:
+
+Uma breve documentação da API:
+https://documenter.getpostman.com/view/17174426/UUxzA7yN
+
+
+### Cenário, hipóteses e expectativas
+No projeto procurei separar os casos de uso para cada domínio da aplicação com o objetivo de alcançar a arquitetura proposta no Clean Arch. E além disso proporcionar uma maior facilidade na manutenção, nos testes e na criação de novas features.
+
+Procurei deixar as partes mais importantes prontas, para que o projeto pudesse em seu roadmap ir crescendo com o minimo de efeitos colatareis. Para isso utilizei o RubyCritic para analize da complexidade e churn do código. Utilizei também o simplecov para analise da cobertura de testes.
+
+Os casos de uso foram gerados utilizando como suporte a gem U-Case, o que garantiu um código mais modular, expressivo e sequencialmente lógico.
+
+## Próximos passos e melhorias
+
+### Segurança
+- Criar o model de usuário;
+- Implementar os casos de uso e testes do usuário para signup, login, logout;
+- Implementar os endpoints e testes usuário para signup, login, logout;
+- Implementar os casos de uso e testes do usuário visitante; 
+- Implementar o caso de uso e testes para a geração do Token da API;
+
+### Invoice
+- Aumentar a cobertura de testes;
+- Separar as responsabilidades do model invoice para um model e repository;
+- Implementar o caso de uso e testes para editar/salvar invoices com o status rascunho (draft);
+- Melhorar e implementar os testes para o endpoint de editar/salvar invoices com o status rascunho (draft);
+- Criar um area administrativa para o usuário logado poder visualizar a lista de invoices;
+- Criar uma tela em que usuário como visitante possa gerar e enviar a invoice;
+- Enviar o PDF em anexo também no email enviado;
+- Gerar/implementar e adicionar no email o has do arquivo PDF (SHA256);
+
+### FrontEnd
+- Adicionar Vue.js
+- Utilizar o bootstrap/bulma para auxiliar na criação das views;
+- Criar componentes reutilizáveis;
+- Criar os prototipos com foco em UX;
