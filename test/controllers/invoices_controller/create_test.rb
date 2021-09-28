@@ -40,7 +40,7 @@ class InvoicesControllerCreateTest < ActionDispatch::IntegrationTest
         'discount_amount': 9.99,
         'tax_percentage': 9.99,
         'tax_amount': 9.99,
-        'due_date': '2021-09-27',
+        'due_date': Time.zone.today + 1.day,
         'sub_total': 9.99,
         'total': 9.99,
         'items_attributes': [
