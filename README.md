@@ -85,6 +85,8 @@ Procurei deixar as partes mais importantes prontas, para que o projeto pudesse e
 
 Os casos de uso foram gerados utilizando como suporte a gem U-Case, o que garantiu um código mais modular, expressivo e sequencialmente lógico.
 
+No frontend coloquei o foco em deixar o mais simples possível para o MVP, onde em um primeiro momento já seremos capazes de criar a invoice e visualizar a invoice.
+
 ## Próximos passos e melhorias
 
 ### Segurança
@@ -105,7 +107,8 @@ Os casos de uso foram gerados utilizando como suporte a gem U-Case, o que garant
 - Gerar/implementar e adicionar no email o has do arquivo PDF (SHA256);
 
 ### FrontEnd
-- Adicionar Vue.js
-- Utilizar o bootstrap/bulma para auxiliar na criação das views;
 - Criar componentes reutilizáveis;
 - Criar os prototipos com foco em UX;
+- Adicionar um preview da invoice;
+- Adicioanar funções e classes para que possa ser calculado o total da invoice automáticamente;
+- Adicionar componentes e tela para o perfil do usuário;
