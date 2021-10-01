@@ -3,6 +3,10 @@
 class InvoicesController < ApplicationController
   def welcome; end
 
+  def new
+    render_invoice_form(invoice: Invoice.new)
+  end
+
   def show
     @invoice = find_invoice[:invoice]
 
@@ -22,6 +26,10 @@ class InvoicesController < ApplicationController
   end
 
   private
+
+  def render_invoice_form(invoice:)
+    render('invoices/new', locals: { invoice: invoice })
+  end
 
   def find_invoice
     Invoice::Find.call(params: params)
