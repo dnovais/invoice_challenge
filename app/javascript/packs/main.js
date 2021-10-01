@@ -1,72 +1,104 @@
-/* eslint no-console: 0 */
-// Run this example by adding <%= javascript_pack_tag 'hello_vue' %> (and
-// <%= stylesheet_pack_tag 'hello_vue' %> if you have styles in your component)
-// to the head of your layout file,
-// like app/views/layouts/application.html.erb.
-// All it does is render <div>Hello Vue</div> at the bottom of the page.
+import Vue from 'vue/dist/vue.esm'
+import TurbolinksAdapter from 'vue-turbolinks'
+import VueResource from 'vue-resource'
+import Maska from 'maska'
 
-import Vue from 'vue'
-import App from '../app.vue'
+Vue.use(VueResource)
+Vue.use(TurbolinksAdapter)
+Vue.use(Maska)
 
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    render: h => h(App)
-  }).$mount()
-  document.body.appendChild(app.$el)
+document.addEventListener('turbolinks:load', () => {
+  Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
-  console.log(app)
-})
+  let element = document.getElementById("invoice")
 
+  if (element != null) {
 
-// The above code uses Vue without the compiler, which means you cannot
-// use Vue to target elements in your existing html templates. You would
-// need to always use single file components.
-// To be able to target elements in your existing html/erb templates,
-// comment out the above code and uncomment the below
-// Add <%= javascript_pack_tag 'hello_vue' %> to your layout
-// Then add this markup to your html template:
-//
-// <div id='hello'>
-//   {{message}}
-//   <app></app>
-// </div>
+    let id = element.dataset.id
+    let invoice = JSON.parse(element.dataset.invoice)
+    let company = JSON.parse(element.dataset.companyAttributes)
+    let client = JSON.parse(element.dataset.clientAttributes)
+    let items = JSON.parse(element.dataset.itemsAttributes)
 
+    let company_attributes = []
+    company_attributes.push(company)
 
-// import Vue from 'vue/dist/vue.esm'
-// import App from '../app.vue'
-//
-// document.addEventListener('DOMContentLoaded', () => {
-//   const app = new Vue({
-//     el: '#hello',
-//     data: {
-//       message: "Can you say hello?"
-//     },
-//     components: { App }
-//   })
-// })
-//
-//
-//
-// If the project is using turbolinks, install 'vue-turbolinks':
-//
-// yarn add vue-turbolinks
-//
-// Then uncomment the code block below:
-//
-// import TurbolinksAdapter from 'vue-turbolinks'
-// import Vue from 'vue/dist/vue.esm'
-// import App from '../app.vue'
-//
-// Vue.use(TurbolinksAdapter)
-//
-// document.addEventListener('turbolinks:load', () => {
-//   const app = new Vue({
-//     el: '#hello',
-//     data: () => {
-//       return {
-//         message: "Can you say hello?"
-//       }
-//     },
-//     components: { App }
-//   })
-// })
+    let client_attributes = []
+    client_attributes.push(client)
+    
+    invoice.company_attributes = company_attributes
+    invoice.client_attributes = client_attributes
+    invoice.items_attributes = items
+
+    console.log(invoice)
+
+    let app = new Vue({
+      el: element,
+      data: function() {
+        return {
+          id: id,
+          invoice: {
+            title: '',
+            status: '',
+            due_date: '',
+            total: 0.0,
+            company_attributes: [
+              {
+                name: '',
+                email: '',
+                cnpj: '',
+                address: '',
+                phone: '',
+              }
+            ],
+            client_attributes: [
+              {
+                name: '',
+                email: '',
+                cpf: '',
+                address: '',
+                phone: '',
+              }
+            ],
+            items_attributes: []
+          },
+          errors: {},
+        }
+      },
+      methods: {
+        addItem: function() {
+          this.invoice.items_attributes.push({
+            name: "",
+            description: "",
+            unit_cost: 0.0,
+            quantity: 0,
+          })
+        },
+        removeItem: function(index) {
+          this.invoice.items_attributes.splice(index, 1)
+        },
+        saveInvoice() {
+          this.$http.post(
+            '/api/invoices',
+            {
+              invoice: {
+                title: this.invoice.title,
+                status: this.invoice.status,
+                due_date: this.invoice.due_date,
+                total: this.invoice.total,
+                company_attributes: this.invoice.company_attributes[0],
+                client_attributes: this.invoice.client_attributes[0],
+                items_attributes: this.invoice.items_attributes
+              } 
+            }
+          )
+          .then(response => {
+            Turbolinks.visit(`/invoices/${response.body.invoice.id}`)
+          }, response => {
+            this.errors = response.body.invoice
+          })
+        }
+      }
+    })
+  }
+});

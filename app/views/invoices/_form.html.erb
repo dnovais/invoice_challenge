@@ -1,0 +1,157 @@
+<%= content_tag :div,
+  id: 'invoice', 
+  data: {
+    id: invoice.id,
+    invoice: invoice.as_json( except: [:id, :company_id, :client_id, :created_at, :updated_at] ),
+    company_attributes: invoice.build_company.as_json(except: [:id, :invoice_id, :created_at, :updated_at]),
+    client_attributes: invoice.build_client.as_json(except: [:id, :invoice_id, :created_at, :updated_at]),
+    items_attributes: invoice.items.as_json(except: [:invoice_id, :created_at, :updated_at])
+  } do %>
+  <div class='card'>
+    <div id="form" >
+      <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-3">
+              <label for="invoice_title" class="form-label">Title</label>
+              <input type='text' v-model="invoice.title" class="form-control" id="invoice_title" required>
+              <span style="color:red">{{errors.title}}</span>
+            </div>
+
+            <div class="col-md-3">
+              <label for="invoice_status" class="form-label">Status</label>
+              <select v-model="invoice.status" class="form-select" id="invoice_status" required>
+                <option value=""></option>
+                <option value="draft">Draft</option>
+                <option value="sent">Sent</option>
+                <option value="paid">Paid</option>
+                <option value="closed">Closed</option>
+              </select>
+              <span style="color:red">{{errors.status}}</span>
+            </div>
+
+          <div class="col-md-3">
+            <label for="invoice_due_date" class="form-label">Due Date</label>
+            <input type='text' v-model="invoice.due_date" class="form-control" id="invoice_title" v-maska="'##/##/####'" required>
+            <span style="color:red">{{errors.due_date}}</span>
+          </div>
+
+          <div class="col-md-3">
+            <label for="invoice_total" class="form-label">Total</label>
+            <input type='text' v-model="invoice.total" class="form-control" id="invoice_total">
+            <span style="color:red">{{errors.total}}</span>
+          </div>
+
+          <hr />
+
+          <h4>Company: </h4>
+          <div v-for="(company, index) in invoice.company_attributes">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="invoice_company_name" class="form-label">Company Name</label>
+                <input type="text" v-model="company.name" class="form-control" id="invoice_company_name" required>
+                <span style="color:red">{{errors['company.name']}}</span>
+              </div>
+
+              <div class="col-md-6">
+                <label for="invoice_company_email" class="form-label">email</label>
+                <input type="text" v-model="company.email" class="form-control" id="invoice_company_email" required>
+                <span style="color:red">{{errors['company.email']}}</span>
+              </div>
+
+              <div class="col-md-4">
+                <label for="invoice_company_cnpj" class="form-label">CNPJ</label>
+                <input type="text" v-model="company.cnpj" class="form-control" id="invoice_company_cnpj"  v-maska="'##.###.###/####-##'" required>
+                <span style="color:red">{{errors['company.cnpj']}}</span>
+              </div>
+
+              <div class="col-md-4">
+                <label for="invoice_company_address" class="form-label">Address</label>
+                <input type="text" v-model="company.address" class="form-control" id="invoice_company_address">
+                <span style="color:red">{{errors['company.address']}}</span>
+              </div>
+
+              <div class="col-md-4">
+                <label for="invoice_company_phone" class="form-label">phone</label>
+                <input type="text" v-model="company.phone" class="form-control" id="invoice_company_phone" v-maska="['(##) ####-####', '(##) #####-####']">
+                <span style="color:red">{{errors['company.phone']}}</span>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <h4>Bill to:</h4>
+          <div v-for="(client, index) in invoice.client_attributes">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="invoice_client_name" class="form-label">Name</label>
+                <input type="text" v-model="client.name" class="form-control" id="invoice_client_name" required>
+                <span style="color:red">{{errors['client.name']}}</span>
+                </div>
+
+              <div class="col-md-6">
+                <label for="invoice_client_email" class="form-label">email</label>
+                <input type="text" v-model="client.email" class="form-control" id="invoice_client_email" required>
+                <span style="color:red">{{errors['client.email']}}</span>
+                </div>
+
+              <div class="col-md-4">
+                <label for="invoice_client_cpf" class="form-label">CPF</label>
+                <input type="text" v-model="client.cpf" class="form-control" id="invoice_client_cpf" v-maska="'###.###.###-##'" required>
+                <span style="color:red">{{errors['client.cpf']}}</span>
+                </div>
+
+              <div class="col-md-4">
+                <label for="invoice_client_address" class="form-label">Address</label>
+                <input type="text" v-model="client.address" class="form-control" id="invoice_client_address">
+                <span style="color:red">{{errors['client.address']}}</span>
+                </div>
+
+              <div class="col-md-4">
+                <label for="invoice_client_phone" class="form-label">phone</label>
+                <input type="text" v-model="client.phone" class="form-control" id="invoice_client_phone" v-maska="['(##) ####-####', '(##) #####-####']">
+                <span style="color:red">{{errors['client.phone']}}</span>
+                </div>
+            </div>
+
+            <hr />
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6"><h4>Products & Services</h4></div>
+            <div class="col-md-6 text-end"><button v-on:click="addItem" class="btn-outline-primary">(+) Add Item</button></div>
+          </div>
+
+          <div v-for="(item, index) in invoice.items_attributes">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label for="invoice_items_name" class="form-label">item Name</label>
+                <input type="text" v-model="item.name" class="form-control" id="invoice_items_name">
+                </div>
+
+              <div class="col-md-12">
+                <label for="invoice_items_description" class="form-label">Description</label>
+                <input type="text" v-model="item.description" class="form-control" id="invoice_items_description">
+                </div>
+
+              <div class="col-md-6">
+                <label for="invoice_items_unit_cost" class="form-label">Value</label>
+                <input type="text" v-model="item.unit_cost" class="form-control" id="invoice_items_unit_cost">
+                </div>
+
+              <div class="col-md-6">
+                <label for="invoice_items_quantity" class="form-label">Quantity</label>
+                <input type="text" v-model="item.quantity" class="form-control" id="invoice_items_quantity">
+                </div>
+
+              <button v-on:click="removeItem(index)" class="btn btn-danger">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-end">
+        <button @click="saveInvoice" class="btn btn-primary">Send Invoice</button>
+      </div>
+    </div>
+  </div>
+<% end %>
