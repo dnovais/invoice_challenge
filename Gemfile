@@ -40,6 +40,8 @@ gem 'wkhtmltopdf-binary'
 gem 'redis'
 gem 'sidekiq'
 
+gem 'foreman'
+
 group :development, :test do
   gem 'pry'
 end
